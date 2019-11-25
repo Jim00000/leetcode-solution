@@ -1,39 +1,39 @@
 #pragma once
 
-#include <atomic>
-#include <chrono>
+#include <condition_variable>
 #include <functional>
-#include <iostream>
-#include <thread>
+#include <mutex>
 
 class Foo {
 public:
-  Foo() : isFirstDone(false), isSecondDone(false) {}
+  Foo() {}
 
   void first(std::function<void()> printFirst) {
     // printFirst() outputs "first". Do not change or remove this line.
     printFirst();
-    isFirstDone.store(true, std::memory_order_release);
+    firstReady = true;
+    cv.notify_all();
   }
 
   void second(std::function<void()> printSecond) {
-    while (isFirstDone.load(std::memory_order_acquire) == false) {
-      std::this_thread::sleep_for(std::chrono::nanoseconds(5));
-    }
-
+    std::unique_lock<std::mutex> guard(mtx);
+    cv.wait(guard, [this] { return firstReady; });
     // printSecond() outputs "second". Do not change or remove this line.
     printSecond();
-    isSecondDone.store(true, std::memory_order_release);
+    secondReady = true;
+    guard.unlock();
+    cv.notify_one();
   }
 
   void third(std::function<void()> printThird) {
-    while (isSecondDone.load(std::memory_order_acquire) == false) {
-      std::this_thread::sleep_for(std::chrono::nanoseconds(10));
-    }
+    std::unique_lock<std::mutex> guard(mtx);
+    cv.wait(guard, [this] { return secondReady; });
     // printThird() outputs "third". Do not change or remove this line.
     printThird();
   }
 
 private:
-  std::atomic_int64_t isFirstDone, isSecondDone;
+  bool firstReady = false, secondReady = false;
+  std::mutex mtx;
+  std::condition_variable cv;
 };
