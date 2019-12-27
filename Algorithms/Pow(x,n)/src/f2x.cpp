@@ -1,8 +1,8 @@
-#include "f2xm1.hpp"
+#include "f2x.hpp"
 
 using namespace leetcode;
 
-double leetcode::f2xm1(double x)
+double leetcode::f2x(double x)
 {
     asm volatile(
         "fld1                   \n\t"  // ST(0) = 1.0
@@ -15,7 +15,7 @@ double leetcode::f2xm1(double x)
     return x;
 }
 
-__attribute__((naked)) double leetcode::__f2xm1(const double x)
+__attribute__((naked)) double leetcode::__f2x(const double x)
 {
     asm volatile(
         ".intel_syntax noprefix            \n\t"  // intel syntax

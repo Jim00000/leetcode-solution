@@ -2,7 +2,7 @@
 
 namespace leetcode {
 
-double f2xm1(double x);
-double __f2xm1(double x);
+double f2x(double x);
+double __f2x(double x);
 
 }  // namespace leetcode
