@@ -3,6 +3,7 @@
 #include <limits>
 
 #include "Solution.hpp"
+#include "f2xm1.hpp"
 
 using namespace leetcode;
 
@@ -64,7 +65,11 @@ double Solution::myPow(double x, int n)
     double integer;
     double fractional = modf(nlog2x, &integer);
     // Use taylor series to approximate 2^x where -1.0 < x < 1.0
-    double value = approximate(fractional);
+    // double value = approximate(fractional);
+
+    // Or use x86 f2xm1 instruction to calculate (2^x - 1)
+    // Notice that we have plus one to the result in f2xm1 function
+    double value = f2xm1(fractional);
     // Use shift operation to calculate the value of integer part
     //
     // e.g. integer part is +3 means 1 << 3 → 8
