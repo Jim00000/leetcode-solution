@@ -1,4 +1,5 @@
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 add_library(ContainerWithMostWater Solution.cpp)
 add_executable(app main.cpp)
+target_compile_options(app PRIVATE -ggdb)
 target_link_libraries(app ContainerWithMostWater)
