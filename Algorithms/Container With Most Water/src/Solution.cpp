@@ -17,12 +17,15 @@ int Solution::maxArea(std::vector<int>& height)
     const int n = height.size();
     if (n < 2) throw std::invalid_argument("size of height < 2");
     const int _2stMax = maxMin2(height);
-    int maxAreaVal = 0;
-    for (int i = n - 1; i > 0; i--) {
+    int maxAreaVal = (n -1) * std::min(height.at(n - 1), height.at(0));
+    for (int i = n - 2; i > 0; i--) {
+        const float limit = maxAreaVal / i;
         for (int j = 0; j < n - i; j++) {
             const int min = std::min(height.at(i + j), height.at(j));
-            const int newArea = min * i;
-            maxAreaVal = std::max(maxAreaVal, newArea);
+            if(min > limit) {
+                const int newArea = min * i;
+                maxAreaVal = std::max(maxAreaVal, newArea);
+            }
             if (min == _2stMax) goto exit_loop;
         }
     }
