@@ -5,30 +5,21 @@
 
 using namespace leetcode;
 
-const int maxMin2(std::vector<int>& v)
-{
-    std::priority_queue<int> maxHeap{v.cbegin(), v.cend()};
-    maxHeap.pop();
-    return maxHeap.top();
-}
-
 int Solution::maxArea(std::vector<int>& height)
 {
     const int n = height.size();
     if (n < 2) throw std::invalid_argument("size of height < 2");
-    const int _2stMax = maxMin2(height);
-    int maxAreaVal = (n -1) * std::min(height.at(n - 1), height.at(0));
-    for (int i = n - 2; i > 0; i--) {
-        const float limit = maxAreaVal / i;
-        for (int j = 0; j < n - i; j++) {
-            const int min = std::min(height.at(i + j), height.at(j));
-            if(min > limit) {
-                const int newArea = min * i;
-                maxAreaVal = std::max(maxAreaVal, newArea);
-            }
-            if (min == _2stMax) goto exit_loop;
+    int maxAreaVal = (n - 1) * std::min(height.at(n - 1), height.at(0));
+    int i = 0, j = n - 1;
+    while (i < j) {
+        maxAreaVal =
+            std::max(maxAreaVal, (j - i) * std::min(height.at(i), height.at(j)));
+        if (height.at(i) < height.at(j)) {
+            i++;
+        } else {
+            j--;
         }
     }
-exit_loop:;
+
     return maxAreaVal;
 }
