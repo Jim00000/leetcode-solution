@@ -14,16 +14,15 @@
 
 class BSTIterator {
 public:
-    BSTIterator(TreeNode* root) : _root(root) {
-        TreeNode* head = root;
-         _stack.push(head);
-        while(head->left != nullptr) {
-            head = head->left;
-            _stack.push(head);
+    BSTIterator(TreeNode* root) noexcept {
+         _stack.push(root);
+        while(root->left != nullptr) {
+            root = root->left;
+            _stack.push(root);
         }
     }
     
-    int next() {
+    int next() noexcept {
         TreeNode* node = _stack.top();
         _stack.pop();
         const int val = node->val;
@@ -38,12 +37,11 @@ public:
         return val;
     }
     
-    bool hasNext() {
+    bool hasNext() noexcept {
         return not _stack.empty();
     }
 private:
     std::stack<TreeNode*> _stack;
-    TreeNode* _root;
 };
 
 /**
