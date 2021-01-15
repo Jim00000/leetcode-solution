@@ -11,6 +11,12 @@
 
 #include <vector>
 
+/**
+ * @brief solution of Remove Nth Node From End of List
+ * 
+ * Time complexity: O(N)
+ * Space complexity: O(N)
+ */
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
