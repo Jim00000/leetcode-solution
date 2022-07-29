@@ -18,7 +18,7 @@ struct ListNode* findTail(struct ListNode *list)
     struct ListNode* tail = list;
     while((tail != NULL) && (tail->next != NULL))
     {
-        tail = list->next;
+        tail = tail->next;
     }
     return tail;
 }
