@@ -161,6 +161,16 @@ void BinarySearchTreeRemove(struct BinaryTreeHeader *header, int key)
     }
 }
 
+void BinarySearchTreeFreeAll(struct TreeNode *node)
+{
+    if(node != NULL)
+    {
+        BinarySearchTreeFreeAll(node->left);
+        BinarySearchTreeFreeAll(node->right);
+        free(node);
+    }
+}
+
 struct BinaryTreeHeader *BinaryTreeHeaderCreate()
 {
     struct BinaryTreeHeader *header = malloc(sizeof(struct BinaryTreeHeader));
@@ -259,7 +269,7 @@ void DSWAlgorithm(struct TreeNode **_root, const int total_node)
     *_root = root;
 }
 
-struct TreeNode *getTailAndRemoveInvalidTreeNode(struct TreeNode **root, int* removed_count)
+struct TreeNode *getTailAndRemoveInvalidTreeNode(struct TreeNode **root, int *removed_count)
 {
     int removed_counter = 0;
     if (root != NULL && *root != NULL)
@@ -294,7 +304,7 @@ struct TreeNode *getTailAndRemoveInvalidTreeNode(struct TreeNode **root, int* re
             }
         }
 
-        if(removed_count != NULL)
+        if (removed_count != NULL)
         {
             *removed_count = removed_counter;
         }
@@ -427,6 +437,8 @@ void myHashMapFree(MyHashMap *obj)
 {
     if (obj != NULL)
     {
+        for (int i = 0; i < obj->bucket_size; i++)
+            BinarySearchTreeFreeAll(obj->bucket[i].root);
         free(obj->bucket);
         free(obj);
     }
