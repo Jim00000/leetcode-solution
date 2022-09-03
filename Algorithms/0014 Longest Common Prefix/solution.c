@@ -66,12 +66,11 @@ char *longestCommonPrefix(char **strs, int strsSize)
     if(strsSize == 1)
         return strs[0];
     
-    int mininal = 0xFFFF;
-    int length = strlen(strs[0]);
+    int mininal = strlen(strs[0]);
 
     for(int i = 1; i < strsSize && mininal > 0; i++)
     {
-        int comp = __string_compare(strs[0], strs[i], length);
+        int comp = __string_compare(strs[0], strs[i], mininal);
         mininal = find_mininal(comp, mininal);
     }
 
