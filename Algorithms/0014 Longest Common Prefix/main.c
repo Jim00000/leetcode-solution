@@ -17,12 +17,5 @@ int main(int argc, char *argv[])
     printf_s("A:%s\n", longestCommonPrefix(strs5, 4));
 
 
-    // printf_s("%d \n", string_compare("HelloWorldGoodLife1", "HelloWorldGoodLife2"));
-    // printf_s("%d \n", string_compare("HelloWorlD", "HellaWorld"));
-    // printf_s("%d \n", string_compare("He", "eW"));
-    // printf_s("%d \n", string_compare("same", "same"));
-
-    // printf_s("%d\n", string_compare("He", "H"));
-
     return 0;
 }
