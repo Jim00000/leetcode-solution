@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define IS_INT32_NEGATIVE(VAL) (VAL & 0x80000000)
+#define IS_INT32_NEGATIVE(VAL) ((VAL & 0x80000000) >> 31)
 
 uint32_t division_hardware_simulation(int32_t dividend, int32_t divisor)
 {
@@ -22,9 +22,6 @@ uint32_t division_hardware_simulation(int32_t dividend, int32_t divisor)
 
     uint8_t count = 32;
     const bool negative = IS_INT32_NEGATIVE(dividend) ^ IS_INT32_NEGATIVE(divisor);
-
-    if(IS_INT32_NEGATIVE(dividend))
-        dividend = llabs(dividend);
 
     if(IS_INT32_NEGATIVE(divisor))
         divisor = llabs(divisor);
