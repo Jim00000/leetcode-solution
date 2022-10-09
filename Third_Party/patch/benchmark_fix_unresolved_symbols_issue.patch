@@ -1,0 +1,12 @@
+diff --git a/include/benchmark/export.h b/include/benchmark/export.h
+index f96f859..4a34952 100644
+--- a/include/benchmark/export.h
++++ b/include/benchmark/export.h
+@@ -5,6 +5,7 @@
+ #define EXPORT_ATTR __declspec(dllexport)
+ #define IMPORT_ATTR __declspec(dllimport)
+ #define NO_EXPORT_ATTR
++#define BENCHMARK_STATIC_DEFINE
+ #define DEPRECATED_ATTR __declspec(deprecated)
+ #else  // _WIN32
+ #define EXPORT_ATTR __attribute__((visibility("default")))
