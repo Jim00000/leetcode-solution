@@ -7,12 +7,13 @@ if not exist %GIT% (
 	goto :ExitBatch
 )
 
+set GIT=D:\Git\mingw64\bin\git.exe
+
 for /f "tokens=*" %%i in ('%GIT% rev-parse --show-toplevel') do set REPOSITORY_ROOT=%%i
 
 set GOOGLE_BENCHMARK_PATH=%REPOSITORY_ROOT%/Third_Party/benchmark
 set GOOGLE_BENCHMARK_INCLUDE=%GOOGLE_BENCHMARK_PATH%/include
 set GOOGLE_BENCHMARK_LIB=%GOOGLE_BENCHMARK_PATH%/build/src/Release/benchmark.lib
-
 set VSWHERE="%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
 
 if not exist %VSWHERE% (
@@ -33,7 +34,7 @@ if not exist %VCVARS64% (
 call %VCVARS64%
 
 @rem compile
-cl.exe /EHsc /MD /I%GOOGLE_BENCHMARK_INCLUDE% benchmark.cc %GOOGLE_BENCHMARK_LIB%
+cl.exe /EHsc /MD /Od /I%GOOGLE_BENCHMARK_INCLUDE% benchmark.cc solution.c common.c %GOOGLE_BENCHMARK_LIB%
 
 echo %~nx0 is complete successfully
 @rem pause
